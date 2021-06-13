@@ -10,11 +10,11 @@ Use `forEach` to loop over the input array and work with each value.  Push the n
 ------------------------------------------------------------------------------------------------ */
 
 const addOne = (arr) => {
-  const localArray = [];
+  const newArray = [];
   arr.forEach((value) => {
-    localArray.push(value + 1);
+    return newArray.push(value + 1);
   });
-  return localArray;
+  return newArray;
   // Solution code here...
 };
 
@@ -27,12 +27,12 @@ Use `forEach` to loop over the input array. Modify each string, and add the upda
 ------------------------------------------------------------------------------------------------ */
 
 const addExclamation = (arr) => {
-  const localArr = [];
+  const newArray = [];
   arr.forEach((value) => {
-    localArr.push(value + "!");
+    return newArray.push(value + `!`);
   });
   // Solution code here...
-  return localArr;
+  return newArray;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -45,11 +45,11 @@ Use `forEach` to loop over the input array. The modified strings should each be 
 
 const allUpperCase = (arr) => {
   // Solution code here...
-  const local_Array = [];
+  const newArray = [];
   arr.forEach((value) => {
-    local_Array.push(value.toUpperCase());
+    return newArray.push(value.toUpperCase());
   });
-  return local_Array;
+  return newArray;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -64,17 +64,16 @@ Use `forEach` to build a new array of strings, each string modified by the callb
 
 const greeting = (word) => {
   // Solution code here...
-  return word.toUpperCase() + "!";
+  const newArray = [];
+  word.forEach((value) => {
+    return newArray.push(value.toUpperCase() + "!");
+  });
+  return newArray;
 };
 
 const speaker = (array, callback) => {
-  let newArr = [];
-  array.forEach((word) => {
-    let newWord = callback(word);
-    newArr.push(newWord);
-  });
   // Solution code here...
-  return newArr;
+  return callback(array);
 };
 
 speaker(["sdsds", "sdsdsd"], greeting);
@@ -133,7 +132,7 @@ const createList = (availableItems) => {
   // Solution code here...
   const newArray = [];
   availableItems.forEach((value) => {
-    if (value.available) {
+    if (value.available === true) {
       newArray.push(value.name);
     }
   });
@@ -156,6 +155,19 @@ Return the resulting output array.
 
 const fizzbuzz = (arr) => {
   // Solution code here...
+  let newArray = [];
+  arr.forEach((value) => {
+    if (value % 3 === 0 && value % 5 !== 0) {
+      newArray.push("Fizz");
+    } else if (value % 5 === 0 && value % 3 !== 0) {
+      newArray.push("Buzz");
+    } else if (value % 5 === 0 && value % 3 === 0) {
+      newArray.push("Fizz Buzz");
+    } else {
+      newArray.push(value);
+    }
+  });
+  return newArray;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -229,7 +241,7 @@ describe("Testing challenge 6", () => {
   });
 });
 
-xdescribe("Testing challenge 7", () => {
+describe("Testing challenge 7", () => {
   const inputs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
   test("It should print out messages or numbers", () => {
