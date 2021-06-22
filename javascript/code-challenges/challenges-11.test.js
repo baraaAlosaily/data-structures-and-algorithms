@@ -169,13 +169,13 @@ Write a function named findShortest that, given the Star Wars data from Challeng
 
 let findShortest = (data) => {
   // Solution code here...
-  let myName = data[0];
+  let targetName = data[0];
   data.map((value) => {
-    if (parseInt(value.height) < parseInt(myName.height)) {
-      myName = value;
+    if (parseInt(value.height) < parseInt(targetName.height)) {
+      targetName = value;
     }
   });
-  return myName.name;
+  return targetName.name;
 };
 
 /* ------------------------------------------------------------------------------------------------
