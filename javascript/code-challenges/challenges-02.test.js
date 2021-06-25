@@ -208,7 +208,7 @@ const snorlaxStats = {
 
 const extractStats = (arr) => {
   // Solution code here...
-  return arr.map(ele=>`{ name: ${ele.stat.name}, total: ${ele.effort+ele.baseStat}} `)
+  return arr.map(ele=>`{${name[Object]}:${ele.stat.name}, total: ${ele.effort+ele.baseStat}} `)
 };
 
 /* ------------------------------------------------------------------------------------------------
