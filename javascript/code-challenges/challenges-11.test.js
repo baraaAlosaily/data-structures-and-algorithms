@@ -5,26 +5,27 @@ CHALLENGE 1 - Review
 
 Write a function named transformToLis that, given an object, returns an array of the key value pairs as html list items.
 
-For example: 
+For example:
 {
   name: 'bob',
   age: 32
 }
 
-Becomes: 
+Becomes:
 [
 <li>name: bob</li>,
 <li>age: 32</li>
 ]
 ------------------------------------------------------------------------------------------------ */
 
-function transformToLis(obj) {
+function transformToLis(obj){
   // Solution code here...
-  let newArray = Object.keys(obj).map(
-    (value) => `<li>${value}: ${obj[value]}</li>`
-  );
-  return newArray;
-}
+  let newArr=[];
+ for(let prop in obj){
+   newArr.push(`<li>${prop}: ${obj[prop]}</li>`)
+ }
+ return newArr
+};
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 2
@@ -38,15 +39,14 @@ For example, count(5, [[1, 3, 5, 7, 9], [5, 5, 5], [1, 2, 3]]) returns 4.
 
 const count = (target, input) => {
   // Solution code here...
-  let total = 0;
-  for (let index = 0; index < input.length; index++) {
-    for (let i = 0; i < input[index].length; i++) {
-      if (target === Number(input[index][i])) {
-        total++;
-      }
-    }
-  }
-  return total;
+  let count=0;
+  input.map((ele)=>{
+    ele.map((x)=>{
+      if(x==target)
+      count++;
+    })
+  })
+  return count;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -61,12 +61,13 @@ For example, [[1, 2, 3, 4, 5], [6, 7, 2, 4, 5, 7], [9, 2, 3, 6,]] returns 66.
 
 const totalSum = (input) => {
   // Solution code here...
-
-  let total = input.map((value) => {
-    return value.reduce((a, b) => a + b, 0);
-  });
-  let newTatal = total.reduce((a, b) => a + b, 0);
-  return newTatal;
+  let count=0;
+  input.map((ele)=>{
+    ele.map((x)=>{
+      count+=x
+    })
+  })
+  return count;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -83,14 +84,20 @@ For example, [ [0,2,5,4], [2,4,10], [] ] should return [ [1, 32], [1024], [] ].
 
 const divisibleByFiveTwoToThePower = (input) => {
   // Solution code here...
-  return input.map((element) =>
-    element
-      .filter((x) => x % 5 === 0 && typeof x === 'number')
-      .map((x) => Math.pow(2, x))
-  );
+  let newArr=input.map((ele)=>{
+    let subarr=[];
+  ele.filter((x)=>{
+      if(x%5==0 && typeof x === 'number'){
+      subarr.push(Math.pow(2,x))
+      }
+    })
+    return subarr
+  })
+  return newArr
 };
+
 /* ------------------------------------------------------------------------------------------------
-CHALLENGE 5 
+CHALLENGE 5
 
 Write a function named findMaleAndFemale that, given the Star Wars data, below,
 returns the names of the characters whose gender is either male or female.
@@ -100,82 +107,86 @@ The names should be combined into a single string with each character name separ
 For example, "C-3PO and Luke Skywalker".
 ------------------------------------------------------------------------------------------------ */
 
-let starWarsData = [
-  {
-    name: 'Luke Skywalker',
-    height: '172',
-    mass: '77',
-    hair_color: 'blond',
-    skin_color: 'fair',
-    eye_color: 'blue',
-    birth_year: '19BBY',
-    gender: 'male',
-  },
-  {
-    name: 'C-3PO',
-    height: '167',
-    mass: '75',
-    hair_color: 'n/a',
-    skin_color: 'gold',
-    eye_color: 'yellow',
-    birth_year: '112BBY',
-    gender: 'n/a',
-  },
-  {
-    name: 'R2-D2',
-    height: '96',
-    mass: '32',
-    hair_color: 'n/a',
-    skin_color: 'white, blue',
-    eye_color: 'red',
-    birth_year: '33BBY',
-    gender: 'n/a',
-  },
-  {
-    name: 'Darth Vader',
-    height: '202',
-    mass: '136',
-    hair_color: 'none',
-    skin_color: 'white',
-    eye_color: 'yellow',
-    birth_year: '41.9BBY',
-    gender: 'male',
-  },
-  {
-    name: 'Leia Organa',
-    height: '150',
-    mass: '49',
-    hair_color: 'brown',
-    skin_color: 'light',
-    eye_color: 'brown',
-    birth_year: '19BBY',
-    gender: 'female',
-  },
-];
+let starWarsData = [{
+  name: 'Luke Skywalker',
+  height: '172',
+  mass: '77',
+  hair_color: 'blond',
+  skin_color: 'fair',
+  eye_color: 'blue',
+  birth_year: '19BBY',
+  gender: 'male',
+},
+{
+  name: 'C-3PO',
+  height: '167',
+  mass: '75',
+  hair_color: 'n/a',
+  skin_color: 'gold',
+  eye_color: 'yellow',
+  birth_year: '112BBY',
+  gender: 'n/a'
+},
+{
+  name: 'R2-D2',
+  height: '96',
+  mass: '32',
+  hair_color: 'n/a',
+  skin_color: 'white, blue',
+  eye_color: 'red',
+  birth_year: '33BBY',
+  gender: 'n/a'
+},
+{
+  name: 'Darth Vader',
+  height: '202',
+  mass: '136',
+  hair_color: 'none',
+  skin_color: 'white',
+  eye_color: 'yellow',
+  birth_year: '41.9BBY',
+  gender: 'male'
+},
+{
+  name: 'Leia Organa',
+  height: '150',
+  mass: '49',
+  hair_color: 'brown',
+  skin_color: 'light',
+  eye_color: 'brown',
+  birth_year: '19BBY',
+  gender: 'female'
+}];
 
 let findMaleAndFemale = (data) => {
   // Solution code here...
-  return data
-    .filter((value) => value.gender === 'male' || value.gender === 'female')
-    .map((kind) => kind.name)
-    .join(' and ');
+  let str="";
+  for(let prop in data){
+    if(data[prop].gender=='male'||data[prop].gender=='female'){
+      str+=data[prop].name+' and ';
+    }
+  }
+  return str.slice(0,-5);
 };
 
 /* ------------------------------------------------------------------------------------------------
-CHALLENGE 6 
+CHALLENGE 6
 
 Write a function named findShortest that, given the Star Wars data from Challenge 6, uses any combination of filter, map and reduce to return the name of the character who is the shortest in height.
 ------------------------------------------------------------------------------------------------ */
 
 let findShortest = (data) => {
   // Solution code here...
-  let targetName = data[0];
-  data.map((value) => {
-    if (parseInt(value.height) < parseInt(targetName.height)) {
-      targetName = value;
+  let min=1000;
+  let minName="";
+  for(let prop in data){
+    if(Number(data[prop].height)<min){
+      min=data[prop].height;
+      console.log(min)
+      minName=data[prop].name;
     }
-  });
-  return targetName.name;
+  }
+  return minName
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -191,55 +202,27 @@ Run your tests from the console: jest challenges-10.test.js
 
 describe('Testing challenge 1', () => {
   test('It should return a list of key value pairs inside of li tags', () => {
-    expect(transformToLis({ name: 'bob', age: 32 })[0]).toStrictEqual(
-      `<li>name: bob</li>`
-    );
-    expect(transformToLis({ name: 'bob', age: 32 })[1]).toStrictEqual(
-      `<li>age: 32</li>`
-    );
+    expect(transformToLis({name: 'bob', age: 32})[0]).toStrictEqual(`<li>name: bob</li>`);
+    expect(transformToLis({name: 'bob', age: 32})[1]).toStrictEqual(`<li>age: 32</li>`);
     expect(transformToLis({})).toStrictEqual([]);
   });
 });
 
 describe('Testing challenge 2', () => {
   test('It should return the number of times the input is in the nested arrays', () => {
-    expect(
-      count(5, [
-        [1, 3, 5, 7, 9],
-        [5, 5, 5],
-        [1, 2, 3],
-      ])
-    ).toStrictEqual(4);
-    expect(
-      count(3, [
-        [1, 3, 5, 7, 9],
-        [5, 5, 5],
-        [1, 2, 3],
-      ])
-    ).toStrictEqual(2);
-    expect(
-      count(12, [
-        [1, 3, 5, 7, 9],
-        [5, 5, 5],
-        [1, 2, 3],
-      ])
-    ).toStrictEqual(0);
+    expect(count(5, [[1, 3, 5, 7, 9], [5, 5, 5], [1, 2, 3]])).toStrictEqual(4);
+    expect(count(3, [[1, 3, 5, 7, 9], [5, 5, 5], [1, 2, 3]])).toStrictEqual(2);
+    expect(count(12, [[1, 3, 5, 7, 9], [5, 5, 5], [1, 2, 3]])).toStrictEqual(0);
   });
   test('It should work on empty arrays', () => {
-    expect(
-      count(5, [[1, 3, 5, 7, 9], [], [5, 5, 5], [1, 2, 3], []])
-    ).toStrictEqual(4);
+    expect(count(5, [[1, 3, 5, 7, 9], [], [5, 5, 5], [1, 2, 3], []])).toStrictEqual(4);
     expect(count(5, [])).toStrictEqual(0);
   });
 });
 
 describe('Testing challenge 3', () => {
   test('It should add all the numbers in the arrays', () => {
-    const nums = [
-      [1, 2, 3, 4, 5],
-      [6, 7, 2, 4, 5, 7],
-      [9, 2, 3, 6],
-    ];
+    const nums = [[1, 2, 3, 4, 5], [6, 7, 2, 4, 5, 7], [9, 2, 3, 6,]];
 
     expect(totalSum(nums)).toStrictEqual(66);
   });
@@ -247,47 +230,22 @@ describe('Testing challenge 3', () => {
 
 describe('Testing challenge 4', () => {
   test('It should return numbers divisible by five, then raise two to the power of the resulting numbers', () => {
-    expect(
-      divisibleByFiveTwoToThePower([
-        [10, 20, 5, 4],
-        [5, 6, 7, 9],
-        [1, 10, 3],
-      ])
-    ).toStrictEqual([[1024, 1048576, 32], [32], [1024]]);
+    expect(divisibleByFiveTwoToThePower([[10, 20, 5, 4], [5, 6, 7, 9], [1, 10, 3]])).toStrictEqual([[1024, 1048576, 32], [32], [1024]]);
   });
 
   test('It should return an empty array if none of the numbers are divisible by five', () => {
-    expect(
-      divisibleByFiveTwoToThePower([
-        [1, 2, 3],
-        [5, 10, 15],
-      ])
-    ).toStrictEqual([[], [32, 1024, 32768]]);
+    expect(divisibleByFiveTwoToThePower([[1, 2, 3], [5, 10, 15]])).toStrictEqual([[], [32, 1024, 32768]]);
   });
 
   test('It should return an empty array if the values are not numbers', () => {
-    expect(
-      divisibleByFiveTwoToThePower([
-        ['one', 'two', 'five'],
-        ['5', '10', '15'],
-        [5],
-      ])
-    ).toStrictEqual([[], [], [32]]);
+    expect(divisibleByFiveTwoToThePower([['one', 'two', 'five'], ['5', '10', '15'], [5]])).toStrictEqual([[], [], [32]]);
   });
 });
 
 describe('Testing challenge 5', () => {
   test('It should return only characters that are male or female', () => {
-    expect(findMaleAndFemale(starWarsData)).toStrictEqual(
-      'Luke Skywalker and Darth Vader and Leia Organa'
-    );
-    expect(
-      findMaleAndFemale([
-        { name: 'person', gender: 'female' },
-        { gender: 'lol' },
-        { name: 'persontwo', gender: 'male' },
-      ])
-    ).toStrictEqual('person and persontwo');
+    expect(findMaleAndFemale(starWarsData)).toStrictEqual('Luke Skywalker and Darth Vader and Leia Organa');
+    expect(findMaleAndFemale([{ name: 'person', gender: 'female' }, { gender: 'lol' }, { name: 'persontwo', gender: 'male' }])).toStrictEqual('person and persontwo');
   });
 });
 

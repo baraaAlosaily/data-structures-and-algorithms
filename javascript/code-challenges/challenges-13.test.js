@@ -7,11 +7,18 @@ Write a function named longestString that takes in an array of strings and retur
 ------------------------------------------------------------------------------------------------ */
 
 const longestString = (arr) => {
-// Solution code here...
-let x = arr.map(result => result.length).indexOf(Math.max(...arr.map(result => result.length)));
-return x;
+  // Solution code here...
+  let max = 0;
+  let ind = -1;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].length > max) {
+      max = arr[i].length;
+      ind = i;
+    }
+  }
+  return ind;
 };
-  
+
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 2
 
@@ -22,11 +29,10 @@ For example, ['this is great :)', 'wow', 'whyyyyyy :(', ':)))))'] returns ['t', 
 
 const firstLetters = (arr) => {
   // Solution code here...
-  let x = arr.map(str => {
-    return str.charAt(0);
-
-  });
-  return x;
+  let newArr=arr.map((ele)=>{
+    return ele.substring(0,1);
+  })
+  return newArr
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -39,9 +45,12 @@ For example, ['this is great :)', 'wow', 'whyyyyyy :(', ':)))))'] returns ['this
 
 const findHappiness = (arr) => {
   // Solution code here...
-  let x = arr.filter(result => result.includes(':)'));
-
-  return x;
+  let newArr=arr.filter((ele)=>{
+    if(ele.includes(':)')){
+      return ele;
+    }
+  })
+  return newArr
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -54,8 +63,8 @@ For example, (123) 456-7890 returns 1234567890
 
 const standardizePhoneNumbers = (arr) => {
   // Solution code here...
-  let x = arr.map(result => result.substring(1, 4) + result.substring(6, 9) + result.substring(10, 14));
-  return x;
+  let newArr=arr.map((ele)=> ele.replace(/[- )(]/g,''));
+  return newArr
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -68,8 +77,13 @@ For example, 'abcdefg' returns 'bdf'
 
 const onlyOddChars = (str) => {
   // Solution code here...
-  let x = str.split('').reduce((acc, val, idx) => (idx % 2 !== 0) ? acc += val : acc, '');
-  return x;
+  let str2='';
+  for (let i = 0; i < str.length; i++) {
+    if(i%2!=0){
+      str2+=str.charAt(i);
+    }
+  }
+  return str2
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -80,8 +94,15 @@ Write a function named allHappy that takes in an array of strings and returns a 
 
 const allHappy = (arr) => {
   // Solution code here...
-  let x = ((arr.filter(result => !(result.includes(':)'))).length > 0) ? false : true);
-  return x;
+  let boo=true;
+  arr.forEach(ele => {
+    if(ele.includes(':)')){
+      boo=boo&&true;
+    }else{
+      boo=boo&&false;
+    }
+  });
+  return boo;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -92,6 +113,12 @@ Write a function named findAnything that takes in an array of strings, along wit
 
 const findAnything = (arr, target) => {
   // Solution code here...
+  let newArr=arr.filter(ele => {
+    if(ele.includes(target)){
+      return ele;
+    }
+  });
+  return newArr;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -102,6 +129,15 @@ Write a function named findEvery that takes in an array of strings, along with a
 
 const findEvery = (arr, target) => {
   // Solution code here...
+  let boo=true;
+  arr.forEach(ele => {
+    if(ele.includes(target)){
+      boo=boo&&true;
+    }else{
+      boo=boo&&false;
+    }
+  });
+  return boo;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -118,6 +154,15 @@ For example, [['Brook Testing', 'Actual Person'], ['Human Person', 'Brook again'
 
 const unenrollBrook = (arr) => {
   // Solution code here...
+  let newArr=arr.map((ele)=>{
+    let newArr2=ele.filter((el)=>{
+      if(!el.includes('Brook')){
+        return el;
+      }
+    })
+    return newArr2
+  })
+  return newArr
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -145,6 +190,17 @@ const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Sat
 
 const sortByDay = (arr) => {
   // Solution code here...
+  let newArr=[];
+  for (let i = 0; i < daysOfWeek.length; i++) {
+    let newArr2=[];
+    for (let j = 0; j < arr.length; j++) {
+      if(arr[j].includes(daysOfWeek[i])){
+        newArr2.push(arr[j]);
+      }
+    }
+    newArr.push(newArr2);
+  }
+  return newArr
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -157,6 +213,11 @@ For example, ['abcd', 'efgh', 'ijkl', 'mnop'] returns ['a', 'f', 'k', 'p']
 
 const characterByIndex = (arr) => {
   // Solution code here...
+  let arr2=[];
+  for (let i = 0; i < arr.length; i++) {
+    arr2.push(arr[i].charAt(i))
+  }
+  return arr2
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -174,7 +235,7 @@ describe('Testing challenge 1', () => {
   test('It should return an index position of the longest string', () => {
     const strArray1 = ['Ginger', 'Goose', 'Tangerine', 'Rosie', 'Mario', 'Malaki']
     const strArray2 = [];
-    const strArray3= ['Ginger']
+    const strArray3 = ['Ginger']
 
     expect(longestString(strArray1)).toStrictEqual(2);
     expect(longestString(strArray2)).toStrictEqual(-1);
@@ -231,7 +292,7 @@ describe('Testing challenge 6', () => {
   });
 });
 
-xdescribe('Testing challenge 7', () => {
+describe('Testing challenge 7', () => {
   test('It should find all the strings that contain a given string', () => {
     const words = ['things', 'apple (:)', ':)banana', 'missing that thing', 'cant:)aloupe'];
 
@@ -240,7 +301,7 @@ xdescribe('Testing challenge 7', () => {
   });
 });
 
-xdescribe('Testing challenge 8', () => {
+describe('Testing challenge 8', () => {
   test('It should determine whether all the strings contain a given string', () => {
     const words = ['things', 'apple pie (:)', ':)banana pie', 'missing that thing', 'cant:)aloupe is tasty'];
 
@@ -250,7 +311,7 @@ xdescribe('Testing challenge 8', () => {
   });
 });
 
-xdescribe('Testing challenge 9', () => {
+describe('Testing challenge 9', () => {
   test('It should remove Brook from all courses', () => {
     const roster = [
       ['Michelle', 'Allie', 'Brook TESTING'],
@@ -268,7 +329,7 @@ xdescribe('Testing challenge 9', () => {
   });
 });
 
-xdescribe('Testing challenge 10', () => {
+describe('Testing challenge 10', () => {
   test('It should sort events by the day on which they happen', () => {
     const events = ['Dancing on Mondays and Tuesdays', 'Meet the inventors! Monday, August 7', 'in the club on a Tuesday', 'Thursday Night Code', 'Saturday Night Fever'];
     const sortedEvents = sortByDay(events);
@@ -292,7 +353,7 @@ xdescribe('Testing challenge 10', () => {
   });
 });
 
-xdescribe('Testing challenge 11', () => {
+describe('Testing challenge 11', () => {
   test('It should return the ith character of the ith string', () => {
     const words = ['apple', 'banana', 'cantaloupe'];
 
